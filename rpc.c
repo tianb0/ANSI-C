@@ -16,40 +16,40 @@ int main() {
 
   while ((type = getop(s)) != EOF) {
     switch (type) {
-      case NUMBER:
-        push(atof(s));
-        break;
-      case '+':
-        push(pop() + pop());
-        break;
-      case '*':
-        push(pop() * pop());
-        break;
-      case '-':
-        op2 = pop();
-        push(pop() - op2);
-        break;
-      case '/':
-        op2 = pop();
-        if (op2 != 0.0)
-          push(pop() / op2);
-        else
-          printf("error: zero divisor\n");
-        break;
-      case '\n':
-        printf("\t%.8g\n", pop());
-        break;
-      default:
-        printf("error: unknown command %s\n", s);
-        break;
+    case NUMBER:
+      push(atof(s));
+      break;
+    case '+':
+      push(pop() + pop());
+      break;
+    case '*':
+      push(pop() * pop());
+      break;
+    case '-':
+      op2 = pop();
+      push(pop() - op2);
+      break;
+    case '/':
+      op2 = pop();
+      if (op2 != 0.0)
+        push(pop() / op2);
+      else
+        printf("error: zero divisor\n");
+      break;
+    case '\n':
+      printf("\t%.8g\n", pop());
+      break;
+    default:
+      printf("error: unknown command %s\n", s);
+      break;
     }
-    return 0;
   }
+  return 0;
 }
 
 #define MAXVAL 100 /* maximum depth of val stack */
 
-int sp = 0; /* next free stack position */
+int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
 /* push: push f onto value stack */
@@ -98,28 +98,26 @@ int getop(char s[]) {
 }
 
 /**
-* " 12.34\n"
-* s[0] = c = ' '
-* s[0] = c = '1'
-* s[1] = '\0'
-* i = 0
-* i = 1, s[1] = c = '2'
-* i = 2, s[2] = c = '.'
-* i = 3, s[3] = c = '3'
-* i = 4, s[4] = c = '4'
-* i = 5, s[5] = c = '\n'
-* s[i] = '\0'
-*/
+ * " 12.34\n"
+ * s[0] = c = ' '
+ * s[0] = c = '1'
+ * s[1] = '\0'
+ * i = 0
+ * i = 1, s[1] = c = '2'
+ * i = 2, s[2] = c = '.'
+ * i = 3, s[3] = c = '3'
+ * i = 4, s[4] = c = '4'
+ * i = 5, s[5] = c = '\n'
+ * s[i] = '\0'
+ */
 
 #define BUFSIZE 100
 
 char buf[BUFSIZE]; /* buffer for ungetch */
-int bufp = 0; /* next free position in buf */
+int bufp = 0;      /* next free position in buf */
 
 /* get a possibly pushed back character */
-int getch(void) {
-  return (bufp > 0) ? buf[--bufp] : getchar();
-}
+int getch(void) { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 /* push character back on input */
 void ungetch(int c) {
