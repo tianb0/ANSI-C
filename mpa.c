@@ -42,3 +42,8 @@ char *month_name(int n) {
 
   return (n < 1 || n > 12) ? name[0] : name[n];
 }
+
+// 200 int-sized allocated: row x col
+int a[10][20];
+// 10 pointers allocated, each can point to an array of a different size
+int *b[10];
